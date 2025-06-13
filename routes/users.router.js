@@ -56,6 +56,8 @@ router.patch(
       const { id } = req.params;
       const body = req.body;
       const category = await service.update(id, body);
+      console.log('BODY ENVIADO:', req.body);
+
       res.json(category);
     } catch (error) {
       next(error);

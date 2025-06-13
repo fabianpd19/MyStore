@@ -8,10 +8,10 @@ const UserSchema = {
     allowNull: false,
     autoIncrement: true,
   },
-  name: {
+  /*  name: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
+  }, */
   email: {
     type: DataTypes.STRING,
     allowNull: false,

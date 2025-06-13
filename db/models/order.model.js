@@ -12,7 +12,7 @@ const OrderSchema = {
   customerId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    field: 'customers_id',
+    field: 'customer_id',
     references: {
       model: CUSTOMER_TABLE,
       key: 'id',
@@ -23,13 +23,13 @@ const OrderSchema = {
   createAt: {
     allowNull: false,
     type: DataTypes.DATE,
-    field: 'create_at',
+    field: 'created_at',
     defaultValue: Sequelize.literal('NOW()'),
   },
   total: {
     type: DataTypes.VIRTUAL,
     get() {
-      if (this.items.length > 0) {
+      if (Array.isArray(this.items) && this.items.length > 0) {
         return this.items.reduce((total, item) => {
           return total + item.price * item.OrderProduct.amount;
         }, 0);

@@ -12,16 +12,18 @@ const {
 const router = express.Router();
 const service = new ProductsService();
 
-router.get('/',
+router.get(
+  '/',
   validatorHandler(queryProductSchema, 'query'),
   async (req, res, next) => {
-  try {
-    const products = await service.find(req.query);
-    res.json(products);
-  } catch (error) {
-    next(error);
-  }
-});
+    try {
+      const products = await service.find(req.query);
+      res.json(products);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 router.get(
   '/:id',
@@ -52,6 +54,23 @@ router.post(
 );
 
 router.patch(
+  '/:id',
+  validatorHandler(getProductSchema, 'params'),
+  validatorHandler(updateProductSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const product = await service.update(id, body);
+      res.json(product);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
+
+// Agrega también PUT para mayor compatibilidad
+router.put(
   '/:id',
   validatorHandler(getProductSchema, 'params'),
   validatorHandler(updateProductSchema, 'body'),
