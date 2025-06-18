@@ -1,6 +1,6 @@
 const express = require('express'); // Importar express
 const routerApi = require('./routes'); // Importar las rutas
-const checkApiKey = require('./middlewares/auth.handler');
+const { checkApiKey } = require('./middlewares/auth.handler'); // Importar middleware de autenticación
 const {
   logErrors,
   errorHandler,
@@ -16,6 +16,8 @@ app.get('/', (req, res) => {
 app.get('/nueva-ruta', checkApiKey, (req, res) => {
   res.send('Hola, soy una nueva ruta');
 });
+
+require('./utils/auth'); // Importar la configuración de autenticación
 
 routerApi(app);
 
